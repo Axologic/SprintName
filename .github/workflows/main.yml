@@ -15,7 +15,7 @@ jobs:
             dotnet-version: 6.0.100-preview.3.21202.5
 
         - name: Publish
-          run: dotnet publish Source/SprintName.App/SprintName.App.csproj -c Release -r blazor-wasm -p:TrimMode=Link -p:GHPages=true
+          run: dotnet publish Source/SprintName.App/SprintName.App.csproj -c Release -r blazor-wasm -p:TrimMode=Link -p:GHPages=true -p:GHPagesBase=/
 
         - name: GitHub Pages action
           if: ${{ github.ref == 'refs/heads/main' }}
