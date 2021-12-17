@@ -1,4 +1,4 @@
-name: 'Publish application'
+name: 'Build application'
 on: push
 
 jobs:
@@ -12,22 +12,7 @@ jobs:
         - name: Setup .NET Core
           uses: actions/setup-dotnet@v1
           with:
-            dotnet-version: 6.0.100-preview.5.21302.13
+            dotnet-version: 6.0.x
 
-        - name: Install AOT tools
-          run: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot
-
-        - name: Publish
-          run: dotnet publish Source/SprintName.App/SprintName.App.csproj -c Release -r blazor-wasm -p:TrimMode=Link -p:GHPages=true -p:GHPagesBase=/
-
-        - name: GitHub Pages action
-          if: ${{ github.ref == 'refs/heads/main' }}
-          uses: peaceiris/actions-gh-pages@v3.6.1
-          with:
-            github_token: ${{ secrets.PUBLISH_TOKEN }}
-            publish_branch: gh-pages
-            publish_dir: Source/SprintName.App/bin/Release/net6.0/publish/wwwroot
-            allow_empty_commit: false
-            keep_files: false
-            force_orphan: true
-            cname: sprintname.com
+        - name: Build
+          run: dotnet build Source
